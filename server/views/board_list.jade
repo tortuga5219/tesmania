@@ -1,0 +1,125 @@
+html
+  head  
+    // 루트 폴더에 부트스트랩을 참조하는 링크
+    script(src='https://code.jquery.com/jquery-3.2.1.js')
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css' rel='stylesheet')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js')
+    // 화면 최적화
+    meta(name='viewport' content='width=device-width, initial-scale=1, user-scalable=no')
+    meta(charset='UTF-8')
+    script(src="javascript/boardlist.js" type='text/javascript')
+    link(rel='stylesheet', href='/stylesheets/boardlist.css')
+   
+
+    // 스타일시트 참조
+    title neo 게시판
+  body
+    script.
+      if (local.userid){
+        
+      }
+    script
+    // 네비게이션
+    nav.navbar.navbar-default.navbar-expand-sm.navbar-dark.bg-primary
+      a.navbar-brand(href='#')
+        img.d-inline-block.align-center(src='/images/testlogo.png' width='36' height='36')
+        | 			게시판
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expaned='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse(id='#navbarSupportedContent')
+        ul.navbar-nav
+ 
+        //- ul.nav.navbar-nav.navbar-right
+        //-   li.dropdown
+        //-     a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+        //-       | 접속하기
+        //-       span.caret
+        //-     .dropdown-menu
+        //-       a.dropdown-item(href='/') 로그인
+        //-       a.dropdown-item(href='#') 회원가입
+
+        ul.nav.navbar-nav.navbar-right
+          li
+            a.nav-link(href='/logout' role='button' aria-haspopup='true' aria-expanded='false')
+              | 로그아웃
+              span.caret
+ 
+      form.form-inline.my-2.my-lg-0
+        input.form-control.mr-sm-2(type='search' placeholder='제목 검색' aria-label='Search')
+        button.btn.bg-light.my-2.my-sm-0(type='submit') 검색
+    // 게시판
+    .outter
+      h2 게시판
+      .col.p-5(style='width: 100%')
+        foreach(var='packageData' items='${list}')
+        table#Blist_Table.table.table-hover.solid
+          thead
+            tr
+              th(style='background-color: #eeeeee; text-align: center;') 번호
+              th(style='background-color: #eeeeee; text-align: center;') 제목
+              th(style='background-color: #eeeeee; text-align: center;') 작성자
+              th(style='background-color: #eeeeee; text-align: center;') 작성일
+              th(style='background-color: #eeeeee; text-align: center;') 조회수
+          tbody
+            tr(data-target='#detailModal' data-toggle='modal' data-id='${packageData.idx}' data-title='${packageData.title }' data-writer='${packageData.writer }' data-content='${packageData.content }' data-time='${packageData.insertTime }' data-view='${packageData.viewCnt}')
+              td.table-row(style='text-align: center;') ${packageData.idx}
+              td.table-row(style='text-align: center;') ${packageData.title}
+              td.table-row(style='text-align: center;') ${packageData.writer}
+              td.table-row(style='text-align: center;')
+                fmt:formatdate(pattern='yyyy-MM-dd HH:mm:ss' value='${packageData.insertTime}')
+              td.table-row(style='text-align: center;') ${packageData.viewCnt}
+          tfoot
+        .col-md-12
+          ul.btn-group.pagination.justify-content-md-center
+            c:if(test='${pageMaker.prev }')
+              li.page-item
+                a.page-link(href='<c:url value="/board_list?page=${pageMaker.startPage-1 }"/>')
+                  | 이전
+                  i.fa.fa-chevron-left
+            c:foreach(begin='${pageMaker.startPage }' end='${pageMaker.endPage }' var='pageNum')
+              | <%-- 	
+              li.page-item.active
+                a.page-link.active(href='<c:url value="/board_list?page=${pageNum }"/>')
+                  i.fa ${pageNum}
+              | 		 --%>					
+              li.page-item
+                a.page-link(href='<c:url value="/board_list?page=${pageNum }"/>') ${pageNum}
+            c:if(test='${pageMaker.next && pageMaker.endPage > 0}')
+              li.page-item
+                a.page-link(href='<c:url value="/board_list?page=${pageMaker.endPage+1 }"/>')
+                  | 다음
+                  i.arrow-right-circle
+          span
+          a.btn.btn-primary.float-right(onclick="location.href='/writeing'") 글쓰기
+          // <a class="btn btn-primary float-right" onClick="/testdata">테스트 데이터 생성</a>
+          // </div>
+    #detailModal.modal.fade.bd-example-modal-lg(tabindex='-1' role='dialog' aria-labelledby='detailModalLabel' aria-hidden='true')
+      .modal-dialog.modal-dialog-centered.modal-lg(role='document')
+        .modal-content
+          .modal-header.text-center
+            h3#detailModalLabel.modal-title 게시글 상세보기
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            form
+              table.table.table-bordered
+                thead
+                  tr
+                    th(scope='col' style='width:200px; text-align:center') 번호
+                    td#idx(scope='col' style='width:400px; text-align:center')
+                    th(scope='col' style='width:200px; text-align:center') 작성자
+                    td#writer(scope='col' style='width:400px; text-align:center')
+                  tr
+                    th(scope='row' style=' text-align:center;') 제목
+                    td#title(style=' text-align:center;')
+                    th(scope='row' style=' text-align:center;') 작성일
+                    td#time(style=' text-align:center;')
+                  tr
+                    td#content(colspan='4' style=' text-align:left; height:600px')
+                tbody
+            .modal-footer
+              // <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+              button#comfirm.btn.btn-primary(type='submit' name='comfirm' onclick='update_chk();') 수정하기
+              button#delete.btn.btn-primary(type='submit' name='delete' onclick='delete_chk();') 삭제하기
+              // <button ty href="write.jsp" style="gap: 0px 5px" class="btn btn-primary">글삭제</a>

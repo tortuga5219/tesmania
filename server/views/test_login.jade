@@ -1,0 +1,44 @@
+doctype html
+html(lang='utf-8')
+    head
+        meta(charset='UTF-8')
+        |     
+        title Document
+    body
+        h3 회원 가입
+    
+        form(action='/listin', method='post')
+            table
+                tr
+                    td 아이디 : 
+                    |             
+                    td
+                        input(type='text',id='user_id', name='user_id')
+                |         
+                tr
+                    td 이름 : 
+                    |             
+                    td
+                        input(type='text',id='name' name='name')
+                |         
+                tr
+                    td 비번 : 
+                    |             
+                    td
+                        input(type='password',id='password', name='password')
+                |         
+                tr
+                    td 이메일 : 
+                    |             
+                    td
+                        input(type='email',id='email', name='email')
+                |         
+                tr
+                    td 주소 : 
+                    |             
+                    td
+                        input(type='text',id='address', name='address')
+                |         
+                tr
+                    td
+                        input(type='submit', value='회원가입')
