@@ -45,7 +45,6 @@ function procEvent() {
 	});
 }
 
-
 function login() {
 
 	var userID = $('#edUserId').val();
