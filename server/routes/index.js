@@ -5,13 +5,11 @@ const models = require('../../models');
 var login = require('./login');
 var list = require('./list');
 
-router.get('/list', function(req, res, next){
-    //실제 js
-    list.list(req, res);
-});
-
 router.get('/', function(req, res){
-    login.login(req, res);
+    login.login(req, res); //웹 렌더링
+});
+router.get('/list', function(req, res, next){
+    list.list(req, res); //웹 렌더링
 });
 
 router.post('/joins', function(req, res, next){
