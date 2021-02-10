@@ -12,6 +12,10 @@ router.get('/list', function(req, res, next){
     list.list(req, res); //웹 렌더링
 });
 
+router.get('/test', function(req, res, next){
+    list.test(req, res); //웹 렌더링
+});
+
 router.post('/joins', function(req, res, next){
     let body = req.body;
     

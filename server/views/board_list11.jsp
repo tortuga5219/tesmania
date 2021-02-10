@@ -247,7 +247,7 @@ list-style: none; float: left;
 					</table>
 					<div class="col-md-12">
 					
-						<ul class="btn-group pagination justify-content-md-center">
+						<!-- <ul class="btn-group pagination justify-content-md-center">
 							<c:if test="${pageMaker.prev }">
 								<li class="page-item">
 									<a class="page-link" href='<c:url value="/board_list?page=${pageMaker.startPage-1 }"/>'>이전<i class="fa fa-chevron-left"></i></a>
@@ -255,7 +255,7 @@ list-style: none; float: left;
 							</c:if>
 							
 							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-  							 	
+  							 	- if()
 								<%-- 	<li class="page-item active">
 										<a class="page-link active" href='<c:url value="/board_list?page=${pageNum }"/>'><i class="fa">${pageNum}</i></a>
 									</li>		 --%>					
@@ -271,7 +271,7 @@ list-style: none; float: left;
 								</li>
 							</c:if>
 
-						  </ul>
+						  </ul> -->
 						  <span></span>
 				  				<a class="btn btn-primary float-right" onClick="location.href='/writeing'">글쓰기</a>
 				  				<!-- <a class="btn btn-primary float-right" onClick="/testdata">테스트 데이터 생성</a> -->

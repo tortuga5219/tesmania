@@ -7,6 +7,9 @@ var board_list = {
     insert : function(req, res, next){
         let body = req.body;
         console.log(req + body);
+    },
+    test : function(req, res, next){
+        res.render('../views/test_login');
     }
     // router.showlist((), {
 
