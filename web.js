@@ -11,6 +11,8 @@ let bodyPaser = require('body-parser');
 
 let app = express();
 
+app.locals.moment = require('moment');
+
 //dbsetting
 models.sequelize.sync().then(() =>{
     console.log("connection success!!");

@@ -1,20 +1,20 @@
 $(document).ready(function () {
     $('#detailModal').on('show.bs.modal', function (event) {
         console.log($(this));
-        var idx = $(event.relatedTarget).data('id');
+        var id = $(event.relatedTarget).data('id');
         var title = $(event.relatedTarget).data('title');
         var time = $(event.relatedTarget).data('time');
         var viecount = $(event.relatedTarget).data('view');
         var writer = $(event.relatedTarget).data('writer');
         var content = $(event.relatedTarget).data('content');
-        console.log(idx + "," + title + "," + viecount + "," + time + "," + writer + "," + content);
-        $("#idx").text(idx);
+        console.log(id + "," + title + "," + viecount + "," + time + "," + writer + "," + content);
+        $("#id").text(id);
         $("#title").text(title);
         $("#time").text(time);
         $("#writer").text(writer);
         $("#content").text(content);
         var allData = {
-            "idx": idx,
+            "id": id,
         }
         $.ajax({
             url: "/count_bo",

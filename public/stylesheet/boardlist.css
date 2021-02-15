@@ -1,5 +1,6 @@
 .table-row{
-cursor:pointer;
+    cursor:pointer;
+    text-align: center;
 }
 
 li{

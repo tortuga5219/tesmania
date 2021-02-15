@@ -5,7 +5,7 @@ const { sequelize } = require("../models");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('boards', {
-      idx: {
+      id: {
         type: Sequelize.BIGINT(100),
         allowNull: false,
         autoIncrement: true,

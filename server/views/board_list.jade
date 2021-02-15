@@ -9,17 +9,13 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1, user-scalable=no')
     meta(charset='UTF-8')
     script(src="javascript/boardlist.js" type='text/javascript')
-    link(rel='stylesheet', href='/stylesheets/boardlist.css')
+    link(rel='stylesheet', href='/stylesheet/boardlist.css')
    
 
     // 스타일시트 참조
     title neo 게시판
   body
-    script.
-      if (local.userid){
-        
-      }
-    script
+
     // 네비게이션
     nav.navbar.navbar-default.navbar-expand-sm.navbar-dark.bg-primary
       a.navbar-brand(href='#')
@@ -63,37 +59,36 @@ html
               th(style='background-color: #eeeeee; text-align: center;') 작성일
               th(style='background-color: #eeeeee; text-align: center;') 조회수
           tbody
-            //- - let packageData 
-            //- each list in packageData
-            //-   tr = list
-            //- tr(data-target='#detailModal' data-toggle='modal' data-id='${packageData.idx}' data-title='${packageData.title }' data-writer='${packageData.writer }' data-content='${packageData.content }' data-time='${packageData.insertTime }' data-view='${packageData.viewCnt}')
-            //-   td.table-row(style='text-align: center;') ${packageData.idx}
-            //-   td.table-row(style='text-align: center;') ${packageData.title}
-            //-   td.table-row(style='text-align: center;') ${packageData.writer}
-            //-   td.table-row(style='text-align: center;')
-            //-     fmt:formatdate(pattern='yyyy-MM-dd HH:mm:ss' value='${packageData.insertTime}')
-            //-   td.table-row(style='text-align: center;') ${packageData.viewCnt}
+            -for(let packageData of boards)
+              tr(data-target='#detailModal' data-toggle='modal' data-id='#{packageData.id}' data-title='#{packageData.title}' data-writer='#{packageData.writer}' data-content='#{packageData.content}' data-time='#{moment(packageData.insert_time).format("YYYY-MM-DD HH:mm:ss")}' data-view='#{packageData.view_cnt}')
+                td.table-row(style='text-align: center;')=packageData.id
+                td.table-row(style='text-align: center;')=packageData.title
+                td.table-row(style='text-align: center;')=packageData.writer
+                td.table-row(style='text-align: center;')=moment(packageData.insert_time).format("YYYY-MM-DD HH:mm:ss")
+                td.table-row(style='text-align: center;')=packageData.view_cnt
           tfoot
         .col-md-12
           ul.btn-group.pagination.justify-content-md-center
-            - if(test='${pageMaker.prev }')
+            -let offset = 0
+            //- -if(test='#')
+            //- -for(let i = (page * page_num) - page_num; i<(page * page_num); i++)
                 li.page-item
-                  a.page-link(href='<c:url value="/board_list?page=${pageMaker.startPage-1 }"/>')
+                  a.page-link(href='/list/page/<%= j + 1 %>')
                     | 이전
                     i.fa.fa-chevron-left
 
             
-            c:foreach(begin='${pageMaker.startPage }' end='${pageMaker.endPage }' var='pageNum')
+            //- c:foreach(begin='#{pageMaker.startPage}' end='#{pageMaker.endPage}' var='pageNum')
               | <%-- 	
               li.page-item.active
-                a.page-link.active(href='<c:url value="/board_list?page=${pageNum }"/>')
-                  i.fa ${pageNum}
+                a.page-link.active(href='<c:url value="/board_list?page=#{pageNum }"/>')
+                  i.fa=pageNum
               | 		 --%>					
               li.page-item
-                a.page-link(href='<c:url value="/board_list?page=${pageNum }"/>') ${pageNum}
-            c:if(test='${pageMaker.next && pageMaker.endPage > 0}')
+                a.page-link(href='<c:url value="/board_list?page=#{pageNum }"/>')=pageNum
+            //- c:if(test='${pageMaker.next && pageMaker.endPage > 0}')
               li.page-item
-                a.page-link(href='<c:url value="/board_list?page=${pageMaker.endPage+1 }"/>')
+                a.page-link(href='<c:url value="/board_list?page=#{pageMaker.endPage+1 }"/>')
                   | 다음
                   i.arrow-right-circle
           span
@@ -113,7 +108,7 @@ html
                 thead
                   tr
                     th(scope='col' style='width:200px; text-align:center') 번호
-                    td#idx(scope='col' style='width:400px; text-align:center')
+                    td#id(scope='col' style='width:400px; text-align:center')
                     th(scope='col' style='width:200px; text-align:center') 작성자
                     td#writer(scope='col' style='width:400px; text-align:center')
                   tr
