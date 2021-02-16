@@ -71,13 +71,15 @@ router.get('/list', function(req, res, next){
 
         router.post('/count_bo', function(req, res, next){
             // list.list(req, res); //웹 렌더링/
-            let test = req.body;
-            console.log(body);
+            let id = req.body.id;
+            console.log(id);
 
-            // models.board.update({view_cnt: view_cnt+1}, {where: {id:board.id}})
-            //     .then(result => {
-            //         redirect:'board_list'
-            //     })
+            models.board.update({view_cnt: view_cnt+1}, {where: {id:id}})
+                .then(result => {
+                    // redirect:'board_list'
+                }).catch(err => {
+                    console.error(err);
+                });
             
         });
         // router.get('/page/:page',function(req,res,next)
@@ -107,12 +109,8 @@ router.get('/list', function(req, res, next){
 router.post('/page/:page', function(req, res, next){
     
     let page = req.params.page;
-    
-        if (err) console.error("err : " + err);
-       
+    if (err) console.error("err : " + err);
         console.log(rows.length-1);
-
-
 });
 
 
@@ -144,10 +142,7 @@ router.post('/joinSuccese', function(req, res, next){
 
 router.post('/idcheck', function(req, res, next){
     let body = req.body;
-    
     console.log(body);
-
-    
 });
 
 
