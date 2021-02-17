@@ -30,6 +30,11 @@ $(document).ready(function () {
             }
         });
     });
+    $("#detailModal").on('hidden.bs.modal', function(event){
+        console.log("colsed");
+        location.reload();
+    });
+
 });
 
 function update_chk() {

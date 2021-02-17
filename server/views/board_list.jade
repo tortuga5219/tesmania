@@ -69,26 +69,23 @@ html
           tfoot
         .col-md-12
           ul.btn-group.pagination.justify-content-md-center
-            -let offset = 0
-            //- -if(test='#')
-            //- -for(let i = (page * page_num) - page_num; i<(page * page_num); i++)
+            -if(prev_page)
                 li.page-item
-                  a.page-link(href='/list/page/<%= j + 1 %>')
+                  a.page-link(href='/list/page/#{j + 1}')
                     | 이전
                     i.fa.fa-chevron-left
-
+            //- -for(let i = (page * page_num) - page_num; i<(page * page_num); i++)
             
-            //- c:foreach(begin='#{pageMaker.startPage}' end='#{pageMaker.endPage}' var='pageNum')
-              | <%-- 	
-              li.page-item.active
-                a.page-link.active(href='<c:url value="/board_list?page=#{pageNum }"/>')
-                  i.fa=pageNum
-              | 		 --%>					
+            //- -for(begin='#{pageMaker.startPage}' end='#{pageMaker.endPage}' var='pageNum')
+            //-   li.page-item.active
+            //-     a.page-link.active(href='<value="/board_list?page=#{pageNum }"/>')
+            //-       i.fa=pageNum
+            //-   li.page-item
+            //-     a.page-link(href="/board_list?page=#{pageNum }")=pageNum
+
+            -if(hasNext && endPage > 0)
               li.page-item
-                a.page-link(href='<c:url value="/board_list?page=#{pageNum }"/>')=pageNum
-            //- c:if(test='${pageMaker.next && pageMaker.endPage > 0}')
-              li.page-item
-                a.page-link(href='<c:url value="/board_list?page=#{pageMaker.endPage+1 }"/>')
+                a.page-link(href="/board_list?page=#{pageMaker.endPage+1 }")
                   | 다음
                   i.arrow-right-circle
           span
